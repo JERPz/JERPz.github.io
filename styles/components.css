@@ -1,0 +1,363 @@
+/* ==========================================================================
+   COMPONENTS — pixel panel, title bar, buttons, chips, pills, sprites,
+                marquee, reveal, toast
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   .pbox — the pixel panel primitive
+   Notched corners are faked with four offset box-shadows (no border-radius,
+   no anti-aliasing), plus a hard drop shadow and an inner bevel.
+   -------------------------------------------------------------------------- */
+
+.pbox {
+    --pbox-bg: var(--c-panel);
+    --pbox-shadow: var(--drop);
+    position: relative;
+    padding: var(--pad);
+    background: var(--pbox-bg);
+    box-shadow:
+        /* notched outer frame */
+        0 calc(var(--px) * -1) 0 0 var(--frame),
+        0 var(--px) 0 0 var(--frame),
+        calc(var(--px) * -1) 0 0 0 var(--frame),
+        var(--px) 0 0 0 var(--frame),
+        /* inner bevel */
+        inset var(--px) var(--px) 0 0 rgba(246, 247, 255, 0.12),
+        inset calc(var(--px) * -1) calc(var(--px) * -1) 0 0 rgba(5, 6, 26, 0.5),
+        /* hard drop shadow */
+        calc(var(--px) * 2) calc(var(--px) * 2) 0 0 var(--pbox-shadow);
+}
+
+/* title bar bleeding to the panel edges */
+.panel__bar {
+    margin: calc(var(--pad) * -1) calc(var(--pad) * -1) var(--pad);
+    padding: 10px var(--pad);
+    font-size: var(--fs-ui-sm);
+    color: var(--c-line);
+    background: var(--c-gold);
+    box-shadow: inset 0 calc(var(--px) * -1) 0 0 rgba(5, 6, 26, 0.35);
+}
+
+.panel__bar--cyan {
+    background: var(--c-cyan);
+}
+
+.panel__bar--green {
+    background: var(--c-green);
+}
+
+.panel__bar--violet {
+    background: var(--c-violet);
+}
+
+.panel__bar--gold {
+    background: var(--c-gold);
+}
+
+.panel__bar--dim {
+    color: var(--c-dim);
+    background: var(--c-panel-2);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
+    padding: 14px var(--s-3);
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-sm);
+    line-height: 1;
+    color: var(--c-ink);
+    background: var(--c-panel-2);
+    box-shadow:
+        0 calc(var(--px) * -1) 0 0 var(--frame),
+        0 var(--px) 0 0 var(--frame),
+        calc(var(--px) * -1) 0 0 0 var(--frame),
+        var(--px) 0 0 0 var(--frame),
+        inset var(--px) var(--px) 0 0 rgba(246, 247, 255, 0.16),
+        inset calc(var(--px) * -1) calc(var(--px) * -1) 0 0 rgba(5, 6, 26, 0.45),
+        var(--px) var(--px) 0 0 var(--drop);
+    transition: transform 0.08s steps(2, end), background-color 0.15s linear;
+}
+
+.btn:hover {
+    background: #333c8e;
+    transform: translate(-2px, -2px);
+}
+
+.btn:active {
+    transform: translate(2px, 2px);
+    box-shadow:
+        0 calc(var(--px) * -1) 0 0 var(--frame),
+        0 var(--px) 0 0 var(--frame),
+        calc(var(--px) * -1) 0 0 0 var(--frame),
+        var(--px) 0 0 0 var(--frame),
+        inset var(--px) var(--px) 0 0 rgba(5, 6, 26, 0.35);
+}
+
+.btn--primary {
+    color: var(--c-line);
+    background: var(--c-gold);
+}
+
+.btn--primary:hover {
+    background: var(--c-cyan);
+}
+
+/* pixel triangle "play" arrow */
+.btn__arrow {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   Chips / pills / tags
+   -------------------------------------------------------------------------- */
+
+.chiprow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+}
+
+.chiprow--stack {
+    gap: 10px;
+}
+
+.chip {
+    padding: 8px 10px;
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-xs);
+    line-height: 1.2;
+    color: var(--c-ink);
+    background: var(--c-deep);
+    box-shadow:
+        0 calc(var(--px) * -1) 0 0 var(--frame),
+        0 var(--px) 0 0 var(--frame),
+        calc(var(--px) * -1) 0 0 0 var(--frame),
+        var(--px) 0 0 0 var(--frame),
+        2px 2px 0 0 var(--drop);
+}
+
+.chip--cyan {
+    color: var(--c-line);
+    background: var(--c-cyan);
+}
+
+.chip--gold {
+    color: var(--c-line);
+    background: var(--c-gold);
+}
+
+.chip--green {
+    color: var(--c-line);
+    background: var(--c-green);
+}
+
+.chip--violet {
+    color: var(--c-line);
+    background: var(--c-violet);
+}
+
+.pill {
+    display: inline-block;
+    padding: 6px 10px;
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-xs);
+    line-height: 1;
+    color: var(--c-line);
+    background: var(--c-ink);
+    box-shadow: 2px 2px 0 0 var(--frame);
+}
+
+.pill--green {
+    background: var(--c-green);
+}
+
+.pill--gold {
+    background: var(--c-gold);
+}
+
+.tag {
+    display: inline-block;
+    margin-bottom: var(--s-3);
+    padding: 8px 12px;
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-xs);
+    color: var(--c-line);
+    background: var(--c-green);
+    box-shadow: var(--px) var(--px) 0 0 var(--frame);
+}
+
+.tag--blink {
+    animation: tag-blink 1.6s steps(1, end) infinite;
+}
+
+@keyframes tag-blink {
+
+    0%,
+    70% {
+        background: var(--c-green);
+    }
+
+    71%,
+    100% {
+        background: var(--c-gold);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Sprites (rendered as inline SVG by script/modules/pixel-art.js)
+   -------------------------------------------------------------------------- */
+
+.sprite {
+    display: inline-block;
+    line-height: 0;
+}
+
+.sprite svg {
+    display: block;
+    image-rendering: pixelated;
+    shape-rendering: crispEdges;
+}
+
+.sprite--bob svg {
+    animation: bob 1.6s steps(2, end) infinite;
+}
+
+@keyframes bob {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.sprite--spin svg {
+    animation: coin-spin 1.2s steps(4, end) infinite;
+}
+
+@keyframes coin-spin {
+
+    0%,
+    100% {
+        transform: scaleX(1);
+    }
+
+    50% {
+        transform: scaleX(0.35);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Marquee ticker
+   -------------------------------------------------------------------------- */
+
+.marquee {
+    overflow: hidden;
+    padding: var(--s-2) 0;
+    background: var(--c-line);
+    box-shadow:
+        0 calc(var(--px) * -1) 0 0 var(--c-red),
+        0 var(--px) 0 0 var(--c-cyan);
+}
+
+.marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee 34s linear infinite;
+}
+
+.marquee__group {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.marquee__group li {
+    padding: 0 var(--s-4);
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-sm);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-ink);
+    white-space: nowrap;
+}
+
+/* pixel diamond separator */
+.marquee__gem {
+    padding: 0 var(--s-2) !important;
+}
+
+.marquee__gem::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: var(--c-gold);
+    box-shadow:
+        0 -4px 0 -1px var(--c-gold),
+        0 4px 0 -1px var(--c-gold),
+        -4px 0 0 -1px var(--c-gold),
+        4px 0 0 -1px var(--c-gold);
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Reveal on scroll
+   -------------------------------------------------------------------------- */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity 0.4s steps(4, end),
+        transform 0.4s var(--ease);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   Cheat toast
+   -------------------------------------------------------------------------- */
+
+.cheat-toast {
+    position: fixed;
+    bottom: var(--s-3);
+    left: 50%;
+    z-index: 950;
+    transform: translateX(-50%);
+    padding: 12px var(--s-3);
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-xs);
+    color: var(--c-line);
+    background: var(--c-green);
+    box-shadow: var(--px) var(--px) 0 0 var(--frame);
+}
+
+.cheat-toast[hidden] {
+    display: none;
+}

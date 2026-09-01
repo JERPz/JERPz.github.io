@@ -1,0 +1,278 @@
+/* ==========================================================================
+   RESPONSIVE — breakpoints and motion/contrast preferences
+   ========================================================================== */
+
+/* ---- large tablet ---- */
+@media (max-width: 1080px) {
+    :root {
+        --s-8: 96px;
+        --s-7: 72px;
+    }
+
+    .inventory {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stages,
+    .posts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hud__list {
+        gap: var(--s-2);
+    }
+}
+
+/* ---- collapse to single column + burger nav ---- */
+@media (max-width: 900px) {
+    :root {
+        --pad: 16px;
+        --hud-h: 68px;
+    }
+
+    .container {
+        padding: 0 var(--s-3);
+    }
+
+    .hero__inner {
+        grid-template-columns: 1fr;
+        gap: var(--s-5);
+        padding-top: var(--s-5);
+        padding-bottom: var(--s-6);
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+        gap: var(--s-4);
+    }
+
+    .about__side {
+        gap: var(--s-4);
+    }
+
+    .level {
+        margin-bottom: var(--s-5);
+    }
+
+    .level__sub {
+        margin-left: 0;
+        flex-basis: 100%;
+    }
+
+    /* nav becomes a drop panel */
+    .hud__menu {
+        display: inline-flex;
+        margin-left: var(--s-2);
+        order: 3;
+    }
+
+    .hud__stats {
+        margin-left: auto;
+        order: 2;
+    }
+
+    .hud__nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin-left: 0;
+        display: none;
+        padding: var(--s-2) var(--s-3) var(--s-3);
+        background: var(--c-night);
+        box-shadow: 0 var(--px) 0 0 var(--c-line);
+    }
+
+    .hud__nav.is-open {
+        display: block;
+    }
+
+    .hud__list {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .hud__list li + li {
+        border-top: 2px solid rgba(163, 171, 230, 0.16);
+    }
+
+    .hud__list a {
+        display: block;
+        padding: 14px var(--s-3);
+        font-size: var(--fs-ui-sm);
+    }
+
+    .hud__list a::before {
+        left: 8px;
+    }
+
+    .hud__cta {
+        margin-top: var(--s-2);
+        text-align: center;
+    }
+}
+
+/* ---- phones ---- */
+@media (max-width: 620px) {
+    :root {
+        --s-8: 72px;
+        --s-7: 56px;
+        --s-6: 40px;
+        --fs-body: 1.2rem;
+        --fs-body-lg: 1.3rem;
+    }
+
+    .inventory,
+    .stages,
+    .posts {
+        grid-template-columns: 1fr;
+    }
+
+    .dialogue__body {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: left;
+    }
+
+    .portrait {
+        max-width: 180px;
+    }
+
+    .hero__title {
+        font-size: clamp(1.15rem, 7vw, 1.9rem);
+    }
+
+    .hero__role {
+        font-size: var(--fs-ui-xs);
+    }
+
+    .stat--lives {
+        display: none;
+    }
+
+    /* no divider needed once only the score is left */
+    .hud__stats {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .hero__hint {
+        margin-top: var(--s-3);
+    }
+
+    .quest__head {
+        flex-direction: column;
+    }
+
+    .quest__logo {
+        order: -1;
+    }
+
+    .footer__bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .marquee__group li {
+        padding: 0 var(--s-3);
+        font-size: var(--fs-ui-xs);
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 0 var(--s-2);
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hud__logo span:last-child,
+    .hud__menu-text {
+        display: none;
+    }
+
+    .hud__menu {
+        padding: 10px 12px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Preferences
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+
+    .marquee__track {
+        animation: none;
+        transform: none;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+
+    .crt::after {
+        display: none;
+    }
+
+    .blink,
+    .tag--blink,
+    .dialogue__next {
+        animation: none !important;
+        opacity: 1;
+    }
+}
+
+@media (prefers-contrast: more) {
+    :root {
+        --muted: #dfe3ff;
+    }
+
+    .crt {
+        opacity: 0.25;
+    }
+
+    .stage__screen img {
+        filter: none;
+    }
+}
+
+/* keep it readable when printed */
+@media print {
+
+    .crt,
+    .starfield,
+    .hud,
+    .marquee,
+    .hero__ground,
+    .cheat-toast {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    .pbox {
+        box-shadow: none;
+        border: 2px solid #000;
+    }
+}
