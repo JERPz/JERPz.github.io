@@ -78,8 +78,8 @@ const heroSide = {
         '...KJJJJJJJJK...',
         '...KJJJJJJJJK...',
         '..KJJJJJJJJJK...',
-        '..KAVVVVVVK.....',
-        '..KAAAAAAAK.....'
+        '...KVAAAAVVK....',
+        '...KAAAAAAAK....'
     ]
 };
 
