@@ -8,37 +8,117 @@
 
 const OUTLINE = '#05061a';
 
+/** Shared palette for the hero turnaround frames. */
+const HERO_PALETTE = {
+    K: OUTLINE,
+    H: '#3a2416', // hair
+    S: '#f4b183', // skin
+    M: '#b3312f', // mouth
+    W: '#1b1c33', // band tee
+    R: '#ff2d55', // tee print (red)
+    I: '#f6f7ff', // tee print (white)
+    J: '#5a79c9', // baggy jeans
+    N: '#3f5aa0', // jeans shade / pockets
+    V: '#22243f', // sneaker canvas
+    A: '#f0f2ff'  // sneaker sole + side stripe
+};
+
+/** Flips a sprite horizontally — used for the fourth turnaround frame. */
+const mirrorSprite = (sprite) => ({
+    palette: sprite.palette,
+    rows: sprite.rows.map((row) => [...row].reverse().join(''))
+});
+
+/** 16x20 — facing the camera */
+const heroFront = {
+    palette: HERO_PALETTE,
+    rows: [
+        '.....KKKKKK.....',
+        '....KHHHHHHK....',
+        '...KHHHHHHHHK...',
+        '...KHHHHHHHHK...',
+        '...KHSSSSSSHK...',
+        '...KSSKSSKSSK...',
+        '...KSSSSSSSSK...',
+        '...KSSSMMSSSK...',
+        '....KSSSSSSK....',
+        '....KKSSSSKK....',
+        '..KWWWWWWWWWWK..',
+        '..KWWRRIIRRWWK..',
+        '..KWWRIIIIRWWK..',
+        '.KSKWWWWWWWWKSK.',
+        '..KJJJJJJJJJJK..',
+        '..KJJJJJJJJJJK..',
+        '..KJJJJKKJJJJK..',
+        '.KJJJJJKKJJJJJK.',
+        '.KAVVVK..KVVVAK.',
+        '.KAAAAK..KAAAAK.'
+    ]
+};
+
+/** 16x20 — profile, facing right (mirrored for the fourth frame) */
+const heroSide = {
+    palette: HERO_PALETTE,
+    rows: [
+        '.....KKKKKK.....',
+        '....KHHHHHHK....',
+        '...KHHHHHHHHK...',
+        '...KHHHHHHHHK...',
+        '...KHHHSSSSHK...',
+        '...KHHSSKSSSK...',
+        '...KHHSSSSSSK...',
+        '...KHHSSSMMSK...',
+        '....KHSSSSSK....',
+        '....KKSSSKK.....',
+        '...KWWWWWWWWK...',
+        '...KWWRRWWWWK...',
+        '...KWWWWWWWWK...',
+        '...KWWWWWWKSK...',
+        '...KJJJJJJJJK...',
+        '...KJJJJJJJJK...',
+        '...KJJJJJJJJK...',
+        '..KJJJJJJJJJK...',
+        '..KAVVVVVVK.....',
+        '..KAAAAAAAK.....'
+    ]
+};
+
+/** 16x20 — back view, band print across the shoulders */
+const heroBack = {
+    palette: HERO_PALETTE,
+    rows: [
+        '.....KKKKKK.....',
+        '....KHHHHHHK....',
+        '...KHHHHHHHHK...',
+        '...KHHHHHHHHK...',
+        '...KHHHHHHHHK...',
+        '...KHHHHHHHHK...',
+        '...KHHHHHHHHK...',
+        '....KHHHHHHK....',
+        '.....KSSSSK.....',
+        '....KKSSSSKK....',
+        '..KWWWWWWWWWWK..',
+        '..KWWIIIIIIWWK..',
+        '..KWWWRRRRWWWK..',
+        '.KSKWWWWWWWWKSK.',
+        '..KJNJJJJJJNJK..',
+        '..KJJJJJJJJJJK..',
+        '..KJJJJKKJJJJK..',
+        '.KJJJJJKKJJJJJK.',
+        '.KVVVVK..KVVVVK.',
+        '.KAAAAK..KAAAAK.'
+    ]
+};
+
 export const SPRITES = {
-    /** 16x16 developer character */
-    hero: {
-        palette: {
-            K: OUTLINE,
-            H: '#4b2b12', // hair
-            S: '#f4b183', // skin
-            M: '#b3312f', // mouth
-            T: '#3ee9ff', // shirt
-            P: '#2a3ba0', // trousers
-            B: '#7a3b18'  // boots
-        },
-        rows: [
-            '......KKKK......',
-            '.....KHHHHK.....',
-            '....KHHHHHHK....',
-            '....KHSSSSHK....',
-            '....KSSSSSSK....',
-            '....KSKSSKSK....',
-            '....KSSSSSSK....',
-            '....KSSMMSSK....',
-            '.....KSSSSK.....',
-            '...KKKTTTTKKK...',
-            '..KSKTTTTTTKSK..',
-            '..KSKTTTTTTKSK..',
-            '..KKKTTTTTTKKK..',
-            '....KPPPPPPK....',
-            '....KPPKKPPK....',
-            '...KBBK..KBBK...'
-        ]
-    },
+    /** turnaround frames, in loop order: front → right → back → left */
+    heroFront,
+    heroSide,
+    heroBack,
+    heroSideFlip: mirrorSprite(heroSide),
+
+    /** kept as the single-frame fallback */
+    hero: heroFront,
 
     /** 10x10 coin */
     coin: {

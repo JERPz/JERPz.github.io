@@ -244,6 +244,37 @@
     }
 }
 
+/* Four-frame turnaround: front → right → back → left, one frame at a time.
+   Frames are stacked on the first one, which keeps the host at sprite size. */
+.sprite--turn {
+    --frame-dur: 0.6s;
+    position: relative;
+}
+
+.sprite__frame {
+    display: block;
+    opacity: 0;
+    animation: sprite-turn calc(var(--frame-dur) * 4) steps(1, end) infinite;
+    animation-delay: calc(var(--frame-index) * var(--frame-dur));
+}
+
+.sprite__frame:not(:first-child) {
+    position: absolute;
+    inset: 0;
+}
+
+@keyframes sprite-turn {
+
+    0% {
+        opacity: 1;
+    }
+
+    25%,
+    100% {
+        opacity: 0;
+    }
+}
+
 .sprite--spin svg {
     animation: coin-spin 1.2s steps(4, end) infinite;
 }

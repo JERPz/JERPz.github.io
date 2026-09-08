@@ -227,6 +227,16 @@
         transform: none;
     }
 
+    /* the turnaround would otherwise settle on a hidden frame */
+    .sprite__frame {
+        display: none;
+    }
+
+    .sprite__frame:first-child {
+        display: block;
+        opacity: 1;
+    }
+
     .crt::after {
         display: none;
     }

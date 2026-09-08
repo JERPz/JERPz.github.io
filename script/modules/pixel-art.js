@@ -58,6 +58,9 @@ export function createSprite(name, scale = 4) {
 /**
  * Mounts every `[data-sprite]` placeholder found in the document.
  * `data-scale` optionally overrides the pixel size.
+ *
+ * `[data-sprite-frames]` takes a comma-separated list of sprite names instead
+ * and stacks them as animation frames; CSS (.sprite--turn) shows one at a time.
  */
 export function mountSprites(root = document) {
     root.querySelectorAll('[data-sprite]').forEach((host) => {
@@ -65,6 +68,27 @@ export function mountSprites(root = document) {
         if (svg) {
             host.replaceChildren(svg);
         }
+    });
+
+    root.querySelectorAll('[data-sprite-frames]').forEach((host) => {
+        const scale = Number(host.dataset.scale) || 4;
+        const frames = host.dataset.spriteFrames
+            .split(',')
+            .map((name) => name.trim())
+            .filter(Boolean);
+
+        const frag = document.createDocumentFragment();
+        frames.forEach((name, index) => {
+            const svg = createSprite(name, scale);
+            if (!svg) return;
+            const frame = document.createElement('span');
+            frame.className = 'sprite__frame';
+            frame.style.setProperty('--frame-index', String(index));
+            frame.appendChild(svg);
+            frag.appendChild(frame);
+        });
+
+        if (frag.childElementCount) host.replaceChildren(frag);
     });
 }
 
