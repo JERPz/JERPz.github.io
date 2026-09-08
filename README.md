@@ -40,12 +40,15 @@ asset/                  portrait, CV, transcript, project cover GIFs
   (readable at length, still period-correct).
 - **Sprites.** Editing art means editing text in `sprites.js` — no image files.
   Adjacent same-colour pixels merge into one `<rect>`.
-- **Bookshelf (`#tools`).** Wall, uprights and plank are gradients, not images.
-  Each tool is a `.book` whose *spine* is the link: `writing-mode: vertical-rl`
-  for the title, height and width set per book via `--book-h` / `--book-w`.
-  Hover/focus lifts the book and pops an "Open" tag; `.book--locked` is an empty
-  slot (`aria-hidden`, not focusable). The row scrolls sideways when it no longer
-  fits.
+- **Bookcase (`#tools`).** The carcass is a `.pbox` with a wood `--pbox-bg`;
+  each shelf is a dark back wall plus a `.bookcase__plank`, all gradients, no
+  images. Every tool is a `.book` whose *spine* is the link:
+  `writing-mode: vertical-rl` for the title, size set per book via `--book-h` /
+  `--book-w`, face and band colour via `--book-face` / `--book-band`.
+  Hover/focus lifts the book and pops an "Open" tag; the label plate under the
+  carcass names whichever spine you are on. `.book--locked` is an empty slot
+  (`aria-hidden`, not focusable) and `.bookstack__flat` is a book lying flat.
+  A shelf scrolls sideways when its books no longer fit.
 - **Motion.** Every animation is stepped (`steps(n, end)`) rather than eased, and
   the whole thing goes still under `prefers-reduced-motion: reduce`.
 

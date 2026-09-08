@@ -382,19 +382,18 @@
                 </header>
 
                 <div class="tools">
-                    <article class="shelf pbox reveal">
+                    <article class="bookcase pbox reveal">
                         <h3 class="panel__bar panel__bar--green">Shelf 01 — Dev tools</h3>
 
-                        <div class="shelf__inner">
-                            <div class="shelf__case">
-                                <div class="shelf__books">
+                        <div class="bookcase__case">
+                            <!-- top shelf: the tools, each spine is the link -->
+                            <div class="bookcase__shelf">
+                                <div class="bookcase__row">
                                     <a class="book book--cyan is-current" style="--book-h: 292px; --book-w: 84px"
                                         href="https://jerpz.github.io/span-it-grid-css/" target="_blank"
-                                        rel="noopener noreferrer" data-book data-book-kind="Developer Tool · CSS Grid"
+                                        rel="noopener noreferrer" data-book
                                         data-book-title="Span-it! — CSS Grid layout studio"
-                                        data-book-desc="Drag across cells to draw a layout on a real CSS Grid, place items per breakpoint, then copy the generated CSS, HTML or Tailwind straight into a project. One HTML file, no build step, no dependencies."
-                                        data-book-tags="Vanilla JS, CSS Grid, Zero deps, MIT"
-                                        data-book-source="https://github.com/JERPz/span-it-grid-css">
+                                        data-book-desc="Draw a layout on a real CSS Grid, then copy the CSS, HTML or Tailwind. One file, zero dependencies.">
                                         <span class="book__band book__band--top" aria-hidden="true"></span>
                                         <span class="book__spine">
                                             <span class="book__title">Span-it!</span>
@@ -407,11 +406,8 @@
 
                                     <a class="book book--gold" style="--book-h: 268px; --book-w: 76px"
                                         href="https://jerpz.github.io/who-owes-what/" target="_blank"
-                                        rel="noopener noreferrer" data-book data-book-kind="Developer Tool · PWA"
-                                        data-book-title="WOW — Who Owes What"
-                                        data-book-desc="A pixel-art PWA for splitting shared trip expenses. Add your friends, log what everyone ate, and it works out who owes what — down to a printable pixel receipt you can export as a PNG. Saved to LocalStorage, so it runs offline."
-                                        data-book-tags="Vue 3, TypeScript, Pinia, PWA"
-                                        data-book-source="https://github.com/JERPz/who-owes-what">
+                                        rel="noopener noreferrer" data-book data-book-title="WOW — Who Owes What"
+                                        data-book-desc="Pixel-art PWA that splits shared trip expenses and prints a receipt. Vue 3, offline, no backend.">
                                         <span class="book__band book__band--top" aria-hidden="true"></span>
                                         <span class="book__spine">
                                             <span class="book__title">WOW</span>
@@ -427,53 +423,59 @@
                                         <span class="book__spine"><span class="book__title">?</span></span>
                                     </span>
 
-                                    <span class="book book--locked" style="--book-h: 272px; --book-w: 44px"
+                                    <span class="book book--locked" style="--book-h: 276px; --book-w: 44px"
                                         aria-hidden="true">
                                         <span class="book__spine"><span class="book__title">?</span></span>
                                     </span>
 
-                                    <span class="book book--locked" style="--book-h: 232px; --book-w: 64px"
+                                    <span class="bookstack" aria-hidden="true">
+                                        <span class="bookstack__flat" style="--flat-w: 132px"></span>
+                                        <span class="bookstack__flat bookstack__flat--alt"
+                                            style="--flat-w: 118px"></span>
+                                    </span>
+                                </div>
+                                <div class="bookcase__plank" aria-hidden="true"></div>
+                            </div>
+
+                            <!-- bottom shelf: room to grow -->
+                            <div class="bookcase__shelf">
+                                <div class="bookcase__row bookcase__row--short">
+                                    <span class="book book--locked" style="--book-h: 188px; --book-w: 64px"
                                         aria-hidden="true">
                                         <span class="book__spine"><span class="book__title">?</span></span>
                                     </span>
 
-                                    <span class="shelf__coin" aria-hidden="true">
+                                    <span class="book book--locked" style="--book-h: 204px; --book-w: 48px"
+                                        aria-hidden="true">
+                                        <span class="book__spine"><span class="book__title">?</span></span>
+                                    </span>
+
+                                    <span class="book book--locked" style="--book-h: 172px; --book-w: 60px"
+                                        aria-hidden="true">
+                                        <span class="book__spine"><span class="book__title">?</span></span>
+                                    </span>
+
+                                    <span class="bookstack" aria-hidden="true">
+                                        <span class="bookstack__flat bookstack__flat--alt"
+                                            style="--flat-w: 124px"></span>
+                                    </span>
+
+                                    <span class="bookcase__coin" aria-hidden="true">
                                         <span class="sprite sprite--spin" data-sprite="coin" data-scale="3"></span>
                                     </span>
                                 </div>
-                                <div class="shelf__board" aria-hidden="true"></div>
-                                <p class="shelf__plate">3 slots empty — more tools incoming</p>
+                                <div class="bookcase__plank" aria-hidden="true"></div>
                             </div>
-
-                            <aside class="shelf__note" aria-live="polite">
-                                <p class="shelf__note-kind" data-book-out="kind">Developer Tool · CSS Grid</p>
-                                <h4 class="shelf__note-title" data-book-out="title">Span-it! — CSS Grid layout studio
-                                </h4>
-                                <p class="shelf__note-desc" data-book-out="desc">
-                                    Drag across cells to draw a layout on a real CSS Grid, place items per
-                                    breakpoint, then copy the generated CSS, HTML or Tailwind straight into a
-                                    project. One HTML file, no build step, no dependencies.
-                                </p>
-
-                                <ul class="chiprow" aria-label="Built with" data-book-out="tags">
-                                    <li class="chip chip--cyan">Vanilla JS</li>
-                                    <li class="chip chip--cyan">CSS Grid</li>
-                                    <li class="chip chip--cyan">Zero deps</li>
-                                    <li class="chip chip--cyan">MIT</li>
-                                </ul>
-
-                                <p class="shelf__hint blink">▶ Click a spine to open the tool</p>
-
-                                <div class="shelf__actions">
-                                    <a class="btn btn--primary" href="https://jerpz.github.io/span-it-grid-css/"
-                                        target="_blank" rel="noopener noreferrer" data-book-out="launch">
-                                        <span class="btn__arrow" aria-hidden="true"></span>Launch
-                                    </a>
-                                    <a class="btn" href="https://github.com/JERPz/span-it-grid-css" target="_blank"
-                                        rel="noopener noreferrer" data-book-out="source">Source</a>
-                                </div>
-                            </aside>
                         </div>
+
+                        <p class="bookcase__plate" aria-live="polite">
+                            <span class="bookcase__plate-title" data-book-out="title">Span-it! — CSS Grid layout
+                                studio</span>
+                            <span class="bookcase__plate-desc" data-book-out="desc">Draw a layout on a real CSS Grid,
+                                then copy the CSS, HTML or Tailwind. One file, zero dependencies.</span>
+                        </p>
+
+                        <p class="bookcase__hint blink">▶ Click a spine to open the tool</p>
                     </article>
                 </div>
             </div>

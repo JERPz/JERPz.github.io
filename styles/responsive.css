@@ -50,11 +50,6 @@
         gap: var(--s-4);
     }
 
-    .shelf__inner {
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--s-3);
-    }
-
     .level {
         margin-bottom: var(--s-5);
     }
