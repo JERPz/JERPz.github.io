@@ -50,6 +50,11 @@
         gap: var(--s-4);
     }
 
+    .shelf__inner {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--s-3);
+    }
+
     .level {
         margin-bottom: var(--s-5);
     }
@@ -164,7 +169,6 @@
     .quest__head {
         flex-direction: column;
     }
-
     .quest__logo {
         order: -1;
     }

@@ -215,6 +215,10 @@
     background: radial-gradient(1100px 700px at 50% 0%, rgba(180, 107, 255, 0.16), transparent 70%);
 }
 
+.section--tools {
+    background: radial-gradient(1000px 650px at 50% 100%, rgba(62, 240, 124, 0.13), transparent 72%);
+}
+
 /* level header: LEVEL 0X / TITLE / subtitle */
 .level {
     display: flex;
@@ -275,6 +279,12 @@
 .stages {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-5) var(--s-4);
+}
+
+.tools {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--s-5) var(--s-4);
 }
 

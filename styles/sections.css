@@ -479,6 +479,328 @@
 }
 
 /* --------------------------------------------------------------------------
+   Power-ups — 8-bit bookshelf
+   Each tool is a book spine; the spine itself is the link.
+   -------------------------------------------------------------------------- */
+
+.shelf {
+    --pbox-bg: var(--c-panel);
+    /* shelf furniture (kept local; not part of the global palette) */
+    --wood: #8a5a2b;
+    --wood-dark: #5d3a17;
+    --wood-light: #b57c42;
+}
+
+.shelf__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: var(--s-4);
+    align-items: end;
+}
+
+/* the case: back wall + uprights, board sits under the books */
+.shelf__case {
+    position: relative;
+    min-width: 0;
+    padding: 0 var(--s-2);
+}
+
+.shelf__case::before,
+.shelf__case::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: var(--s-2);
+    height: 100%;
+    background:
+        repeating-linear-gradient(0deg,
+            rgba(5, 6, 26, 0.35) 0 var(--px),
+            transparent var(--px) 20px),
+        linear-gradient(90deg, var(--wood-light), var(--wood-dark));
+    box-shadow: inset 0 0 0 2px rgba(5, 6, 26, 0.55);
+}
+
+.shelf__case::before {
+    left: 0;
+}
+
+.shelf__case::after {
+    right: 0;
+}
+
+.shelf__books {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    min-height: 360px;
+    /* headroom so a lifted book and its "Open" tag stay inside the case */
+    padding: 56px var(--s-2) 0;
+    /* narrow screens scroll the shelf instead of squashing the books */
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    background:
+        /* wall grain */
+        repeating-linear-gradient(90deg,
+            rgba(246, 247, 255, 0.035) 0 var(--px),
+            transparent var(--px) 24px),
+        radial-gradient(120% 90% at 50% 100%, rgba(62, 233, 255, 0.12), transparent 70%),
+        var(--c-void);
+    box-shadow: inset 0 0 0 2px rgba(5, 6, 26, 0.8);
+}
+
+/* the plank the books stand on */
+.shelf__board {
+    height: 22px;
+    background:
+        repeating-linear-gradient(90deg,
+            rgba(5, 6, 26, 0.4) 0 var(--px),
+            transparent var(--px) 64px),
+        linear-gradient(180deg, var(--wood-light) 0 6px, var(--wood) 6px 14px, var(--wood-dark) 14px 100%);
+    box-shadow:
+        0 var(--px) 0 0 rgba(5, 6, 26, 0.85),
+        inset 0 2px 0 0 rgba(246, 247, 255, 0.22);
+}
+
+.shelf__plate {
+    margin-top: var(--s-2);
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-xs);
+    color: var(--c-dim);
+    text-align: center;
+}
+
+/* ---- a book ---- */
+.book {
+    --book-h: 210px;
+    --book-w: 60px;
+    --book-face: var(--c-cyan);
+    --book-band: var(--c-gold);
+    --book-edge: rgba(5, 6, 26, 0.55);
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    width: var(--book-w);
+    height: var(--book-h);
+    padding: 10px 0;
+    background:
+        /* page block hinted on the right edge */
+        linear-gradient(90deg,
+            rgba(246, 247, 255, 0.28) 0 var(--px),
+            transparent var(--px) calc(100% - 6px),
+            var(--book-edge) calc(100% - 6px) 100%),
+        var(--book-face);
+    box-shadow:
+        0 calc(var(--px) * -1) 0 0 var(--frame),
+        calc(var(--px) * -1) 0 0 0 var(--frame),
+        var(--px) 0 0 0 var(--frame),
+        0 var(--px) 0 0 var(--frame),
+        4px 0 0 0 rgba(5, 6, 26, 0.5);
+    transition: transform 0.1s steps(2, end), filter 0.15s linear;
+}
+
+/* gold bands top and bottom of the spine */
+.book__band {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: var(--book-band);
+    box-shadow: 0 2px 0 0 rgba(5, 6, 26, 0.45);
+}
+
+.book__band--top {
+    top: 22px;
+}
+
+.book__band--bottom {
+    bottom: 22px;
+}
+
+/* vertical spine text, kept clear of the two bands */
+.book__spine {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+    padding: 38px 0;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.book__title {
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-sm);
+    line-height: 1;
+    white-space: nowrap;
+    text-transform: uppercase;
+    color: var(--c-line);
+    text-shadow: 1px 1px 0 rgba(246, 247, 255, 0.35);
+}
+
+.book__sub {
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-xs);
+    line-height: 1;
+    white-space: nowrap;
+    color: rgba(5, 6, 26, 0.72);
+}
+
+/* "Open ▶" tag that pops above a lifted book */
+.book__pull {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    white-space: nowrap;
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-xs);
+    color: var(--c-line);
+    background: var(--c-gold);
+    box-shadow: 2px 2px 0 0 var(--frame);
+    opacity: 0;
+    transition: opacity 0.12s linear;
+}
+
+/* the book the note panel is describing gets a marker, not a lift, so it
+   still reads as standing on the plank */
+.book.is-current::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -16px;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--c-gold);
+    box-shadow: 2px 2px 0 0 var(--frame);
+}
+
+.book.is-current:hover::after,
+.book.is-current:focus-visible::after {
+    display: none;
+}
+
+.book:hover,
+.book:focus-visible {
+    /* pulled off the shelf */
+    transform: translateY(-16px);
+    filter: brightness(1.12);
+    z-index: 3;
+}
+
+.book:hover .book__pull,
+.book:focus-visible .book__pull {
+    opacity: 1;
+}
+
+.book--cyan {
+    --book-face: var(--c-cyan);
+}
+
+.book--gold {
+    --book-face: var(--c-gold);
+    /* gold bands would vanish on a gold spine */
+    --book-band: var(--c-line);
+}
+
+.book--green {
+    --book-face: var(--c-green);
+    --book-band: var(--c-line);
+}
+
+.book--violet {
+    --book-face: var(--c-violet);
+}
+
+.book--violet .book__title {
+    color: var(--c-ink);
+    text-shadow: 1px 1px 0 rgba(5, 6, 26, 0.5);
+}
+
+/* empty slots: unlabelled, not focusable, no pointer affordance */
+.book--locked {
+    --book-face: #39408f;
+    --book-edge: rgba(5, 6, 26, 0.7);
+    cursor: default;
+    filter: none;
+}
+
+.book--locked .book__spine {
+    padding: 0;
+    writing-mode: horizontal-tb;
+}
+
+.book--locked .book__title {
+    font-size: var(--fs-ui-md);
+    color: rgba(163, 171, 230, 0.8);
+    text-shadow: none;
+}
+
+.book--locked:hover {
+    transform: none;
+    filter: none;
+}
+
+.shelf__coin {
+    display: inline-flex;
+    align-items: flex-end;
+    margin-left: auto;
+    padding-bottom: 2px;
+}
+
+/* ---- note panel beside the shelf ---- */
+.shelf__note {
+    padding: var(--s-3);
+    background: var(--c-deep);
+    box-shadow:
+        inset 0 0 0 2px rgba(5, 6, 26, 0.8),
+        var(--px) var(--px) 0 0 rgba(5, 6, 26, 0.5);
+}
+
+.shelf__note-kind {
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-xs);
+    color: var(--c-green);
+}
+
+.shelf__note-title {
+    margin-top: var(--s-2);
+    font-size: var(--fs-ui-sm);
+    line-height: 1.7;
+    color: var(--c-ink);
+}
+
+.shelf__note-desc {
+    margin-top: var(--s-2);
+    color: var(--muted);
+}
+
+.shelf__note .chiprow {
+    margin-top: var(--s-3);
+}
+
+.shelf__hint {
+    margin-top: var(--s-3);
+    font-family: var(--font-ui);
+    font-size: var(--fs-ui-xs);
+    color: var(--c-gold);
+}
+
+.shelf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+}
+
+/* --------------------------------------------------------------------------
    Side quests (blog)
    -------------------------------------------------------------------------- */
 

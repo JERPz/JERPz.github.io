@@ -9,7 +9,7 @@ Static site, no build step, no framework. Deployed with GitHub Pages.
 ## Structure
 
 ```
-index.html              single page, semantic sections (#about, #skills, #projects, #blog, #contact)
+index.html              single page, semantic sections (#about, #skills, #projects, #tools, #blog, #contact)
 styles/
   base.css              design tokens, reset, typography, CRT + starfield canvas
   layout.css            container, HUD, section shells, grids, footer frame
@@ -25,6 +25,7 @@ script/
     reveal.js           IntersectionObserver reveal-on-scroll
     hud.js              scroll progress, arcade score, active level in nav
     nav.js              mobile nav panel
+    shelf.js            bookshelf note panel follows the hovered/focused spine
     parallax.js         starfield drift
     konami.js           ↑ ↑ ↓ ↓ ← → ← → B A cheat mode
 asset/                  portrait, CV, transcript, project cover GIFs
@@ -39,6 +40,12 @@ asset/                  portrait, CV, transcript, project cover GIFs
   (readable at length, still period-correct).
 - **Sprites.** Editing art means editing text in `sprites.js` — no image files.
   Adjacent same-colour pixels merge into one `<rect>`.
+- **Bookshelf (`#tools`).** Wall, uprights and plank are gradients, not images.
+  Each tool is a `.book` whose *spine* is the link: `writing-mode: vertical-rl`
+  for the title, height and width set per book via `--book-h` / `--book-w`.
+  Hover/focus lifts the book and pops an "Open" tag; `.book--locked` is an empty
+  slot (`aria-hidden`, not focusable). The row scrolls sideways when it no longer
+  fits.
 - **Motion.** Every animation is stepped (`steps(n, end)`) rather than eased, and
   the whole thing goes still under `prefers-reduced-motion: reduce`.
 

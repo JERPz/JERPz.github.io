@@ -7,6 +7,7 @@ import { mountSprites } from './modules/pixel-art.js';
 import { initReveal } from './modules/reveal.js';
 import { initHud } from './modules/hud.js';
 import { initNav } from './modules/nav.js';
+import { initShelf } from './modules/shelf.js';
 import { initParallax } from './modules/parallax.js';
 import { initKonami } from './modules/konami.js';
 
@@ -15,6 +16,7 @@ const features = [
     ['reveal', initReveal],
     ['hud', initHud],
     ['nav', initNav],
+    ['shelf', initShelf],
     ['parallax', initParallax],
     ['konami', initKonami]
 ];
