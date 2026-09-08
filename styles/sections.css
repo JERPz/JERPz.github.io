@@ -529,10 +529,6 @@
     scrollbar-width: thin;
 }
 
-.bookcase__row--short {
-    min-height: 262px;
-}
-
 /* the plank each row of books stands on */
 .bookcase__plank {
     height: 22px;
