@@ -722,6 +722,20 @@
     text-shadow: 1px 1px 0 rgba(5, 6, 26, 0.5);
 }
 
+.book--red {
+    --book-face: var(--c-red);
+    --book-band: var(--c-gold);
+}
+
+.book--red .book__title {
+    color: var(--c-ink);
+    text-shadow: 1px 1px 0 rgba(5, 6, 26, 0.5);
+}
+
+.book--red .book__sub {
+    color: rgba(246, 247, 255, 0.78);
+}
+
 /* empty slots: unlabelled, not focusable, no pointer affordance */
 .book--locked {
     --book-face: #39408f;
